@@ -13,27 +13,27 @@ module "cluster" {
   aws_availability_zones    = try(local.config.aws_availability_zones, [""])
 }
 
-module "kubernetes" {
-  source  = "gitlab.com/vkpr/terraform-kubernetes-rbac/kubernetes"
-  version = "~> 1.1.0"
+#module "kubernetes" {
+#  source  = "gitlab.com/vkpr/terraform-kubernetes-rbac/kubernetes"
+#  version = "~> 1.1.0"
 
-  users_list             = local.config.users_list
-  cluster_endpoint       = module.cluster.cluster_endpoint
-  cluster_ca_certificate = module.cluster.cluster_certificate_authority_data
-  cluster_access_token   = module.cluster.kubeconfig_token
+#  users_list             = local.config.users_list
+#  cluster_endpoint       = module.cluster.cluster_endpoint
+#  cluster_ca_certificate = module.cluster.cluster_certificate_authority_data
+#  cluster_access_token   = module.cluster.kubeconfig_token
 
-  depends_on = [module.cluster]
-}
+#  depends_on = [module.cluster]
+#}
 
-module "kubeconfig" {
-  source  = "gitlab.com/vkpr/terraform-kubernetes-kubeconfig/kubernetes"
-  version = "~> 1.1.0"
+#module "kubeconfig" {
+#  source  = "gitlab.com/vkpr/terraform-kubernetes-kubeconfig/kubernetes"
+#  version = "~> 1.1.0"
 
-  users_list             = local.config.users_list
-  cluster_name           = local.config.cluster_name
-  cluster_endpoint       = module.cluster.cluster_endpoint
-  cluster_ca_certificate = module.cluster.cluster_certificate_authority_data
-  cluster_access_token   = module.kubernetes.secrets_access_tokens
+#  users_list             = local.config.users_list
+#  cluster_name           = local.config.cluster_name
+#  cluster_endpoint       = module.cluster.cluster_endpoint
+#  cluster_ca_certificate = module.cluster.cluster_certificate_authority_data
+#  cluster_access_token   = module.kubernetes.secrets_access_tokens
 
   depends_on = [module.kubernetes]
 }
