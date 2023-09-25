@@ -19,7 +19,7 @@ node_groups:
     ami_type: AL2_x86_64
     instance_types:
       - "t3.small"
-    capacity_type: "SPOT"
+    capacity_type: "ON_DEMAND"
 cluster_enabled_log_types:
   - api
   - audit
